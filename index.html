@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./assets/css/styles.css" />
-
   <title>Coding Quiz Challenge</title>
 </head>
 
 <body>
+
   <nav class="navbar navbar-dark bg-primary">
     <span class="navbar-brand mb-0 h1">Coding Quiz Challenge</span>
     <div>
@@ -22,25 +22,29 @@
       </ul>
     </div>
   </nav>
-  <div class="container">
+
+  <main class="container">
     <div class="row">
+
       <div class="col-9 mt-5">
         <div class="col-12" id="question">
         </div>
       </div>
-      <!-- Counter -->
+
       <div class="col-3 mt-5" id="scorecard">
         <div class="card text-center mt-2">
           <div class="card-body">
             <h5 class="card-title">Seconds left</h5>
             <h6 class="card-subtitle mb-2 text-muted">No pressure!</h6>
-            <p class="timer" id="timer">
-            </p>
+            <p class="timer" id="timer"></p>
           </div>
         </div>
       </div>
+
     </div>
-  </div>
-  <script src="./assets/js/script.js"></script> 
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
+
 </html>

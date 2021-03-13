@@ -1,16 +1,17 @@
 // global
 var index = 0;
 var score = 0;
-var secondsLeft = 15;
+var secondsLeft = 75; // set to 75 for final commit
 var interval;
 var highscore;
 var name;
 var countdownEl = document.querySelector("#timer"); //nav-div
 var divEl = document.querySelector("#question"); //first-div
+var body = document.body; //background experiment
 
 // html elements - what am I'm going to insert?
 var timeEl = document.createElement("p");
-var startEl = document.createElement("h4");
+var startEl = document.createElement("h2");
 var questionEl = document.createElement("p");
 var startBtn = document.createElement("button");
 var btn1 = document.createElement("button");
@@ -27,22 +28,25 @@ timeEl.className = "timer";
 startEl.className = "h2 text-primary";
 startEl.textContent = "Try to answer the following questions within 75 seconds. Please note that incorrect answers will penalize your time by 10 seconds!"
 questionEl.className = "h2";
-startBtn.className = "btn btn-primary btn-block mt-4 col-6";
+startBtn.className = "btn btn-primary btn-lg btn-block mt-4 col-12";
 startBtn.textContent = "Start";
 btn1.className = "btn btn-outline-primary btn-block mt-4 mb-2 col-6 ml-4 option";
 btn2.className = "btn btn-outline-primary btn-block ml-4 mb-2 col-6 option";
 btn3.className = "btn btn-outline-primary btn-block ml-4 mb-2 col-6 option";
 btn4.className = "btn btn-outline-primary btn-block ml-4 mb-2 col-6 option";
 labelEl.className = "ml-4";
-inputEl.className = "ml-4";
-inputEl.placeholder = "Initials";
-submitBtn.className = "btn btn-primary ml-4";
+inputEl.className = "form-control form-control-lg col-12 mb-2 mt-4";
+inputEl.placeholder = "Record your name as the last player!";
+submitBtn.className = "btn btn-success btn-lg col-12";
 submitBtn.textContent = "Submit"
-scoreDiv.className = "mt-4 ml-4"
+scoreDiv.className = "h4 mb-2"
 
-// Load all the elements to the HTML
+// Load all the elements to the HTML - Arrange properly from top to bottom
 countdownEl.appendChild(timeEl);
 divEl.prepend(startEl);
+divEl.appendChild(scoreDiv);
+divEl.appendChild(inputEl);
+divEl.appendChild(submitBtn);
 divEl.appendChild(startBtn);
 divEl.appendChild(btn1);
 divEl.appendChild(btn2);
@@ -50,9 +54,6 @@ divEl.appendChild(btn3);
 divEl.appendChild(btn4);
 divEl.prepend(questionEl);
 divEl.appendChild(labelEl);
-divEl.appendChild(inputEl);
-divEl.appendChild(submitBtn);
-divEl.appendChild(scoreDiv);
 
 //Hide these elements initially
 questionEl.hidden = true;
@@ -107,6 +108,13 @@ function askQuestion(index) {
   btn4.textContent = questions[index].a[3];
 }
 
+function wrong(){
+  $(body).toggleClass('wrong');
+    setTimeout(function() {
+          $(body).removeClass('wrong');
+    }, 500);
+};
+
 //When start button is clicked... 
 startBtn.addEventListener("click", function () {
     score = 0;
@@ -135,7 +143,8 @@ startBtn.addEventListener("click", function () {
 //Check which answer button is clicked. Check if button value == question object index then update score and call next question.
 divEl.addEventListener("click", function (event) {
     if (event.target.matches(".option")) {  // targeting by a fake class, not proud!
-        var buttonClicked = event.target.value;
+      var buttonClicked = event.target.value;
+
 
         if (index === 0 && buttonClicked === "1") { // 2nd option is the correct answer for question 1
             score++;
@@ -149,6 +158,7 @@ divEl.addEventListener("click", function (event) {
             score++;
         } else {
             secondsLeft -= 10;
+            wrong();
         }
         if (index < 4) {
             index++;
@@ -160,40 +170,46 @@ divEl.addEventListener("click", function (event) {
     }
 })
 
-//When time is up or all questions answered end game and update elements
+// when time is up or all questions answered end game and update elements
 function endGanme() {
-    startEl.textContent = "Game Over!";
-    startEl.hidden = false;
+
+    // hide elements
     questionEl.hidden = true;
     btn1.hidden = true;
     btn2.hidden = true;
     btn3.hidden = true;
     btn4.hidden = true;
+
+    // show elements again
+    startEl.hidden = false;
     startBtn.hidden = false;
     labelEl.hidden = false;
     inputEl.hidden = false;
     submitBtn.hidden = false;
     scoreDiv.hidden = false;
-    startBtn.textContent = "Try Again"
-    secondsLeft= 5;
+
+    // tell user what´s going on
+    startEl.textContent = "OK! \n Your score was " + score + " out of 5";
+    startBtn.textContent = "Or Try Again"
+
+    // restore values   
+    secondsLeft= 75; // set to 75 for final commit
     index = 0;
-    labelEl.textContent = "Highscore: " + score + " out of 5";
     highscore = localStorage.getItem("highscore");
     initials = localStorage.getItem("initials");
     if (initials && highscore !== null) {
-        scoreDiv.textContent = "Last score: " + initials + " : " + highscore;
+        scoreDiv.textContent = "Last player was " + initials + " and scored " + highscore;
     }
 }
 
-//Store our score and name in local storage
+//Store score and initials in local storage
 submitBtn.addEventListener("click", function() {
     localStorage.setItem("highscore", score);
     localStorage.setItem("initials", inputEl.value);
+    location.reload();
 })
 
 // Specific Styles - we dont want to do CSS today!
 countdownEl.style.color = "red";
 countdownEl.style.fontSize = "100px";
-inputEl.style.maxWidth = "250px";
-scoreDiv.style.fontWeight = "bold"
-scoreDiv.style.fontSize = "22px";
+scoreDiv.style.color = "red";
