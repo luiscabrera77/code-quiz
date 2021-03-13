@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="result"></div>
+  <button onclick="reloadd()">Reload</button>
+  <button onclick="clearF()">Clear</button>
+  <input id="valoare" />
+  <button id="adauga" onclick="adauga()">+</button>
+  <button onclick="nrElemente()">ElemNr?</button>
+
+  <script type="text/javascript">
+    var array1 = localStorage.getItem("array1");
+    array1 = (array1) ? JSON.parse(array1) : [];
+
+    var two = "kes";
+    document.getElementById("result").innerHTML = localStorage.getItem("array1");
+
+    function clearF() {
+      window.localStorage.clear();
+      location.reload();
+    }
+    function adauga() {
+      var x = document.getElementById("valoare").value;
+      array1.push(x);
+      localStorage.setItem("array1", JSON.stringify(array1));
+      document.getElementById("result").innerHTML = localStorage.getItem("array1");
+    }
+    function reloadd() {
+      location.reload();
+    }
+    function nrElemente() {
+      alert(localStorage.length);
+    }
+  </script>
+</body>
+</html>
+</html>

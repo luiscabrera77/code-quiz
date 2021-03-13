@@ -1,9 +1,10 @@
 body {
   background:white;
+  transition:background-color 0.1s ;
 }
 
 .wrong {
   background:red;
-  transition:background-color 0.5s ease;
+  transition:background-color 0.1s;
 }
 
