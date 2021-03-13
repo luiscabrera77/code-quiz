@@ -1,0 +1,199 @@
+// global
+var index = 0;
+var score = 0;
+var secondsLeft = 15;
+var interval;
+var highscore;
+var name;
+var countdownEl = document.querySelector("#timer"); //nav-div
+var divEl = document.querySelector("#question"); //first-div
+
+// html elements - what am I'm going to insert?
+var timeEl = document.createElement("p");
+var startEl = document.createElement("h4");
+var questionEl = document.createElement("p");
+var startBtn = document.createElement("button");
+var btn1 = document.createElement("button");
+var btn2 = document.createElement("button");
+var btn3 = document.createElement("button");
+var btn4 = document.createElement("button");
+var labelEl = document.createElement("label");  
+var inputEl = document.createElement("input");
+var submitBtn = document.createElement("button");
+var scoreDiv = document.createElement("div");
+
+// classes and defaults - how are they going to be "boot-camp dressed"?
+timeEl.className = "timer";
+startEl.className = "h2 text-primary";
+startEl.textContent = "Try to answer the following questions within 75 seconds. Please note that incorrect answers will penalize your time by 10 seconds!"
+questionEl.className = "h2";
+startBtn.className = "btn btn-primary btn-block mt-4 col-6";
+startBtn.textContent = "Start";
+btn1.className = "btn btn-outline-primary btn-block mt-4 mb-2 col-6 ml-4 option";
+btn2.className = "btn btn-outline-primary btn-block ml-4 mb-2 col-6 option";
+btn3.className = "btn btn-outline-primary btn-block ml-4 mb-2 col-6 option";
+btn4.className = "btn btn-outline-primary btn-block ml-4 mb-2 col-6 option";
+labelEl.className = "ml-4";
+inputEl.className = "ml-4";
+inputEl.placeholder = "Initials";
+submitBtn.className = "btn btn-primary ml-4";
+submitBtn.textContent = "Submit"
+scoreDiv.className = "mt-4 ml-4"
+
+// Load all the elements to the HTML
+countdownEl.appendChild(timeEl);
+divEl.prepend(startEl);
+divEl.appendChild(startBtn);
+divEl.appendChild(btn1);
+divEl.appendChild(btn2);
+divEl.appendChild(btn3);
+divEl.appendChild(btn4);
+divEl.prepend(questionEl);
+divEl.appendChild(labelEl);
+divEl.appendChild(inputEl);
+divEl.appendChild(submitBtn);
+divEl.appendChild(scoreDiv);
+
+//Hide these elements initially
+questionEl.hidden = true;
+scorecard.hidden = true;
+btn1.hidden = true;
+btn2.hidden = true;
+btn3.hidden = true;
+btn4.hidden = true;
+labelEl.hidden = true;
+inputEl.hidden = true;
+submitBtn.hidden = true;
+scoreDiv.hidden = true;
+
+//Array with questions and answers
+var questions = [
+    { q: 'Inside which HTML element do we put the Javascript?', a: ['<js>', '<script>', '<scripting>', '<javascript>'], ca: '1' },
+    { q: 'How do you write "Hello World" in an alert box?', a: ['masBox("Hello World");', 'alertBox("Hello World");', 'msg("Hello World");', 'alert("Hello World");'], ca: '3' },
+    { q: 'How do you call a function named "myFunction"?', a: ['call myFunction()', 'myFunction()', 'call function myFunction()', 'function myFunction'], ca: '1' },
+    { q: 'How do you write an IF statement in JavaScript?', a: ['if (i==5)', 'if i = 5', 'if i == 5 then', 'if i = 5 then'], ca: '0' },
+    { q: 'How does a FOR loop start?', a: ['for (var i = 0; i < 5; i++)', 'for var i = 0 to 5', 'for (i < 5; i++)', 'for (i = 0; i < 5)'], ca: '0' },
+];
+
+// Establish buttons values
+btn1.value = "0";
+btn2.value = "1";
+btn3.value = "2";
+btn4.value = "3";
+
+// Function to start timer
+function startTimer() {
+  interval = setInterval(function () {
+      secondsLeft--;
+      timeLeft();
+      if (secondsLeft <= 0) {
+          clearInterval(interval);
+          endGanme();
+      }
+  }, 1000);
+}
+
+// Update seconds
+function timeLeft() {
+  timeEl.textContent =  secondsLeft;
+}
+
+//Establish a value every time a button is clicked
+function askQuestion(index) {
+  questionEl.textContent = questions[index].q;
+  btn1.textContent = questions[index].a[0];
+  btn2.textContent = questions[index].a[1];
+  btn3.textContent = questions[index].a[2];
+  btn4.textContent = questions[index].a[3];
+}
+
+//When start button is clicked... 
+startBtn.addEventListener("click", function () {
+    score = 0;
+
+    // hide previosuly shown elements
+    startEl.hidden = true;
+    startBtn.hidden = true;
+
+    // show previously hidden elements
+    questionEl.hidden = false;
+    scorecard.hidden = false;
+    btn1.hidden = false;
+    btn2.hidden = false;
+    btn3.hidden = false;
+    btn4.hidden = false;
+    labelEl.hidden = true;
+    inputEl.hidden = true;
+    submitBtn.hidden = true;
+    scoreDiv.hidden = true;
+
+    //  start our timer and call askQuestion function
+    startTimer();
+    askQuestion(index);
+})
+
+//Check which answer button is clicked. Check if button value == question object index then update score and call next question.
+divEl.addEventListener("click", function (event) {
+    if (event.target.matches(".option")) {  // targeting by a fake class, not proud!
+        var buttonClicked = event.target.value;
+
+        if (index === 0 && buttonClicked === "1") { // 2nd option is the correct answer for question 1
+            score++;
+        } else if (index === 1 && buttonClicked === "3") { // 4th option is the correct answer for question 2
+            score++;
+        } else if (index === 2 && buttonClicked === "1") { // 2nd option is the correct answer for question 3
+            score++;
+        } else if (index === 3 && buttonClicked === "0") { // 1st option is the correct answer for question 4
+            score++;
+        } else if (index === 4 && buttonClicked === "0") { // 1st option is the correct answer for question 5
+            score++;
+        } else {
+            secondsLeft -= 10;
+        }
+        if (index < 4) {
+            index++;
+            askQuestion(index);
+        } else {
+            endGanme();
+            clearInterval(interval);
+        }
+    }
+})
+
+//When time is up or all questions answered end game and update elements
+function endGanme() {
+    startEl.textContent = "Game Over!";
+    startEl.hidden = false;
+    questionEl.hidden = true;
+    btn1.hidden = true;
+    btn2.hidden = true;
+    btn3.hidden = true;
+    btn4.hidden = true;
+    startBtn.hidden = false;
+    labelEl.hidden = false;
+    inputEl.hidden = false;
+    submitBtn.hidden = false;
+    scoreDiv.hidden = false;
+    startBtn.textContent = "Try Again"
+    secondsLeft= 5;
+    index = 0;
+    labelEl.textContent = "Highscore: " + score + " out of 5";
+    highscore = localStorage.getItem("highscore");
+    initials = localStorage.getItem("initials");
+    if (initials && highscore !== null) {
+        scoreDiv.textContent = "Last score: " + initials + " : " + highscore;
+    }
+}
+
+//Store our score and name in local storage
+submitBtn.addEventListener("click", function() {
+    localStorage.setItem("highscore", score);
+    localStorage.setItem("initials", inputEl.value);
+})
+
+// Specific Styles - we dont want to do CSS today!
+countdownEl.style.color = "red";
+countdownEl.style.fontSize = "100px";
+inputEl.style.maxWidth = "250px";
+scoreDiv.style.fontWeight = "bold"
+scoreDiv.style.fontSize = "22px";

@@ -13,7 +13,7 @@
 
 <body>
   <nav class="navbar navbar-dark bg-primary">
-    <span class="navbar-brand h1">Coding Quiz Challenge</span>
+    <span class="navbar-brand mb-0 h1">Coding Quiz Challenge</span>
     <div>
       <ul class="nav navbar-nav">
         <li class="nav-item">
@@ -25,38 +25,22 @@
   <div class="container">
     <div class="row">
       <div class="col-9 mt-5">
-        <div class="col-12">
-          <h2 id="question">Question felis ut dictum tristique, nibh erat feugiat libero,
-            sit amet fringilla mauris velit in mi. Duis tempus felis vitae
-            felis vulputate pretium?</h2>
-        </div>
-        <div class="col-6">
-          <button type="button" class="btn btn-outline-primary btn-block mb-2">Option 1</button>
-        </div>
-        <div class="col-6">
-          <button type="button" class="btn btn-outline-primary btn-block mb-2">Option 2</button>
-        </div>
-        <div class="col-6">
-          <button type="button" class="btn btn-outline-primary btn-block mb-2">Option 3</button>
-        </div>
-        <div class="col-6">
-          <button type="button" class="btn btn-outline-primary btn-block mb-2">Option 4</button>
+        <div class="col-12" id="question">
         </div>
       </div>
-      <!-- Add a Card -->
-      <div class="col-3 mt-5">
+      <!-- Counter -->
+      <div class="col-3 mt-5" id="scorecard">
         <div class="card text-center mt-2">
           <div class="card-body">
             <h5 class="card-title">Seconds left</h5>
             <h6 class="card-subtitle mb-2 text-muted">No pressure!</h6>
-            <p class="timer">
-              99
+            <p class="timer" id="timer">
             </p>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <script src="./assets/js/script.js"></script> 
 </body>
-
 </html>
