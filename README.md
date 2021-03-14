@@ -24,4 +24,4 @@ Changes background when wrong answer
 https://luiscabrera77.github.io/code-quiz/
 
 ## Screenshots
-https://user-images.githubusercontent.com/54341829/111087701-0b823700-84f1-11eb-87d1-bdf82d4bcecf.png
+![Quiz01](https://user-images.githubusercontent.com/54341829/111087701-0b823700-84f1-11eb-87d1-bdf82d4bcecf.png)
