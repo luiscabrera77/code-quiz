@@ -71,11 +71,11 @@ scoreDiv.hidden = true;
 
 //Array with questions and answers
 var questions = [
-  { q: 'Inside which HTML element do we put the Javascript?', a: ['<js>', '<script>', '<scripting>', '<javascript>'], ca: '1' },
-  { q: 'How do you write "Hello World" in an alert box?', a: ['masBox("Hello World");', 'alertBox("Hello World");', 'msg("Hello World");', 'alert("Hello World");'], ca: '3' },
-  { q: 'How do you call a function named "myFunction"?', a: ['call myFunction()', 'myFunction()', 'call function myFunction()', 'function myFunction'], ca: '1' },
-  { q: 'How do you write an IF statement in JavaScript?', a: ['if (i==5)', 'if i = 5', 'if i == 5 then', 'if i = 5 then'], ca: '0' },
-  { q: 'How does a FOR loop start?', a: ['for (var i = 0; i < 5; i++)', 'for var i = 0 to 5', 'for (i < 5; i++)', 'for (i = 0; i < 5)'], ca: '0' },
+  { q: 'Commonly used data types do NOT include', a: ['strings', 'booleans', 'alerts', 'numbers'], ca: '2' },
+  { q: 'The condition in an if/ else statement is enclosed with…', a: ['quotes', 'curly brackets', 'parentheses', 'square brackets'], ca: '2' },
+  { q: 'Arrays in JavaScript can be used to store…', a: ['numbers and strings', 'other arrays', 'booleans', 'all of the above'], ca: '3' },
+  { q: 'String values must be enclosed within_____ when being assigned to variables.', a: ['commas', 'curly brackets', 'quotes', 'parenthesis'], ca: '2' },
+  { q: 'A very useful tool used during development and debugging for printing content to the debugger is:', a: ['JavaScript', 'terminal/bash', 'for loops', 'console.log'], ca: '3' },
 ];
 
 // Establish buttons values
@@ -170,15 +170,15 @@ divEl.addEventListener("click", function (event) {
   if (event.target.matches(".option")) {  // targeting by a fake class, not proud!
     var buttonClicked = event.target.value;
 
-    if (index === 0 && buttonClicked === "1") { // 2nd option is the correct answer for question 1
+    if (index === 0 && buttonClicked === "2") { // 3rd option is the correct answer for question 1
       score++;
-    } else if (index === 1 && buttonClicked === "3") { // 4th option is the correct answer for question 2
+    } else if (index === 1 && buttonClicked === "2") { // 3rd option is the correct answer for question 2
       score++;
-    } else if (index === 2 && buttonClicked === "1") { // 2nd option is the correct answer for question 3
+    } else if (index === 2 && buttonClicked === "3") { // 4th option is the correct answer for question 3
       score++;
-    } else if (index === 3 && buttonClicked === "0") { // 1st option is the correct answer for question 4
+    } else if (index === 3 && buttonClicked === "2") { // 3rd option is the correct answer for question 4
       score++;
-    } else if (index === 4 && buttonClicked === "0") { // 1st option is the correct answer for question 5
+    } else if (index === 4 && buttonClicked === "3") { // 4th option is the correct answer for question 5
       score++;
     } else {
       secondsLeft -= 10;
