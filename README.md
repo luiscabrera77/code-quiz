@@ -27,3 +27,6 @@ https://luiscabrera77.github.io/code-quiz/
 ![Quiz01](https://user-images.githubusercontent.com/54341829/111087701-0b823700-84f1-11eb-87d1-bdf82d4bcecf.png)
 ![Quiz2](https://user-images.githubusercontent.com/54341829/111087752-51d79600-84f1-11eb-8d2f-37c5ec41fabd.png)
 ![Quiz3](https://user-images.githubusercontent.com/54341829/111087753-5439f000-84f1-11eb-90b0-9e4b5716ef0e.png)
+
+# Notes
+- The mockup provided showed that the score of the user was calculated using the seconds left in the counter. I feel this is incorrect (I can answer everything incorrectly quickly and get a high score). I changed the score to be the number of correct answers.  
