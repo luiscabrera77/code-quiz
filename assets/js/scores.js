@@ -1,41 +1,39 @@
 // global
 var allPlayers = JSON.parse(localStorage.getItem("allPlayers")) || [];
 var contentEl = document.querySelector("#content");
-var titleEl = document.querySelector("#title"); 
-var playersEl = document.querySelector("#players");
+var listEl = document.querySelector("top5");
 var actionsEl = document.querySelector("#actions");
+var list ="";
 
-// sort and trim winners
+// sort and trim top players
 allPlayers.sort( (a,b) => b.result - a.result)
 allPlayers.splice(5);
 
-// extract from array
+// extract top players from array
 function getPlayers(item) {
-  var playerResult = [item.player,item.result].join(" - score: ");
+  var playerResult = [item.player,item.result].join(" : ");
   return playerResult;
 }
 
 // html elements - what am I'm going to insert?
-var titleEl = document.createElement("h2");
-var playersEl = document.createElement("p");
+var listEl = document.createElement("div");
 var actionsEl = document.createElement("button");
 
-// classes and defaults - how are they going to be "boot-camp dressed"?
-titleEl.className = "h2 text-primary";
-playersEl.className = "h3";
-actionsEl.className = "btn btn-danger btn-lg mt-5";
+// Build list of players
+var finalists = allPlayers.map(getPlayers);
+finalists.forEach(arrangeList);
+document.getElementById("top5").innerHTML = list;
 
-// Load all the elements to the HTML - Arrange properly from top to bottom
-contentEl.appendChild(titleEl);
-contentEl.appendChild(playersEl);
+function arrangeList(value, index, array) {
+  list = list + value + "<br>"
+}
+listEl.textContent = list;
+
+// build button to delete localstorage
 contentEl.appendChild(actionsEl);
+actionsEl.className = "btn btn-danger btn-lg mt-5";
+actionsEl.textContent = "Clear Leaderboard";
 
-// Write content
-titleEl.textContent = "Top 5 Players"
-playersEl.textContent = allPlayers.map(getPlayers);
-actionsEl.textContent = "Clear Leaderboard"
-
-// clear localStorage
 actionsEl.addEventListener("click", function () {
   localStorage.clear();
   location.reload();
