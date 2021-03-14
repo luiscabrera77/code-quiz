@@ -8,8 +8,7 @@ var name;
 var countdownEl = document.querySelector("#timer"); //nav-div
 var divEl = document.querySelector("#question"); //first-div
 var body = document.body; //background experiment
-var allPlayers = localStorage.getItem("allPlayers");
-allPlayers = (allPlayers) ? JSON.parse(allPlayers) : [];
+var allPlayers = JSON.parse(localStorage.getItem("allPlayers")) || [];
 var newPlayerObj;
 
 // html elements - what am I'm going to insert?
@@ -26,11 +25,10 @@ var inputEl = document.createElement("input");
 var submitBtn = document.createElement("button");
 var scoreDiv = document.createElement("div");
 
-
 // classes and defaults - how are they going to be "boot-camp dressed"?
 timeEl.className = "timer";
 startEl.className = "h2 text-primary";
-startEl.textContent = "Try to answer the following questions within 75 seconds. Please note that incorrect answers will penalize your time by 10 seconds!"
+startEl.textContent = "You have 75 seconds to answer 5 questions. Every wrong answer will penalize your time by 10 seconds. Good luck!"
 questionEl.className = "h2";
 startBtn.className = "btn btn-primary btn-lg btn-block mt-4 col-12";
 startBtn.textContent = "Start";
@@ -112,6 +110,7 @@ function askQuestion(index) {
   btn4.textContent = questions[index].a[3];
 }
 
+//Tell the user his choice was wrong
 function wrong() {
   $(body).toggleClass('wrong');
   setTimeout(function () {
@@ -164,16 +163,12 @@ function restart() {
   inputEl.hidden = true;
   submitBtn.hidden = true;
   scoreDiv.hidden = true;
-
-  //allPlayers = localStorage.getItem("allPlayers");
-
 }
 
 //Check which answer button is clicked. Check if button value == question object index then update score and call next question.
 divEl.addEventListener("click", function (event) {
   if (event.target.matches(".option")) {  // targeting by a fake class, not proud!
     var buttonClicked = event.target.value;
-
 
     if (index === 0 && buttonClicked === "1") { // 2nd option is the correct answer for question 1
       score++;
@@ -198,7 +193,6 @@ divEl.addEventListener("click", function (event) {
     }
   }
 })
-
 
 // when time is up or all questions answered end game and update elements
 function endGanme() {
@@ -240,7 +234,7 @@ submitBtn.addEventListener("click", function () {
     return;
   }
   else
-    localStorage.setItem("result", score);
+  localStorage.setItem("result", score);
   localStorage.setItem("player", inputEl.value);
 
   newPlayerObj = {
@@ -248,13 +242,11 @@ submitBtn.addEventListener("click", function () {
     result: score,
   }
 
-  //localStorage.setItem("newPlayerObj", JSON.stringify(newPlayerObj)); añadir aqui a lo que hay!
   allPlayers.push(newPlayerObj);
   localStorage.setItem("allPlayers", JSON.stringify(allPlayers));
   console.log(allPlayers);
 
   inputEl.value = "";
-  alert("Thanks for playing!");
   restart();
 
 });
