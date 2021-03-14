@@ -1,4 +1,4 @@
-# code-quiz
+# Code-quiz
 Javascript Code Quiz
 
 ## Acceptance Criteria
