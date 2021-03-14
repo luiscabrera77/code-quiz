@@ -15,10 +15,10 @@ Javascript Code Quiz
 - THEN I can save my initials and score
 
 ## Bonus Features
-Implemented bootcamp
-Stores players and their scores in local Storage
-Trims and sorts top players, allows to clear results
-Changes background when wrong answer
+- Implemented bootcamp
+- Stores players and their scores in local Storage
+- Trims and sorts top players, allows to clear results
+- Changes background when wrong answer
 
 ## Live App
 https://luiscabrera77.github.io/code-quiz/
