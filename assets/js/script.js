@@ -244,7 +244,7 @@ submitBtn.addEventListener("click", function () {
 
   allPlayers.push(newPlayerObj);
   localStorage.setItem("allPlayers", JSON.stringify(allPlayers));
-  console.log(allPlayers);
+  //console.log(allPlayers);
 
   inputEl.value = "";
   restart();
